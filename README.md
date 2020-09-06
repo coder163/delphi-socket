@@ -18,8 +18,16 @@
 # 疑问解答
 
 
+公众号
+
 <img src="http://imgs.coder163.com/gongzhonghao.png" width=120 />
+
+QQ群
+
 <img src="http://imgs.coder163.com/qqqun2.png" width=120 />
+
+互动星球
+
 <img src="https://www.coder163.com/img/quanzi.jpg" width=135 />
 
 
