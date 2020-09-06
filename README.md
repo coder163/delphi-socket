@@ -19,9 +19,6 @@
 <img src="http://imgs.coder163.com//imgsSnipaste_2020-09-06_12-56-02.png" width=300 />
 
 
-
-涉及的内容包括但是不限于网络编程部分
-
 # 资源分享
 
 代码仓库地址：https://github.com/coder163/delphi-socket
