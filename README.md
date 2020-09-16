@@ -25,7 +25,7 @@
 
 哔哩哔哩：https://space.bilibili.com/323024121
 
-西瓜视频：https://www.ixigua.com/home/571362955503720
+
 
 
 # 疑问解答
