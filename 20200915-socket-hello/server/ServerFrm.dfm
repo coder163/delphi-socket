@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 360
-  ClientWidth = 633
+  ClientHeight = 362
+  ClientWidth = 420
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,19 +11,20 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Memo1: TMemo
     Left = 0
     Top = 263
-    Width = 633
+    Width = 417
     Height = 98
     TabOrder = 0
   end
   object ButtonStart: TButton
-    Left = 424
-    Top = 152
+    Left = 337
+    Top = 232
     Width = 75
     Height = 25
     Caption = #21551#21160#26381#21153#22120

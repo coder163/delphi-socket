@@ -13,6 +13,7 @@ type
     ButtonStart: TButton;
     procedure FormCreate(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -27,11 +28,13 @@ implementation
 // 引用的单元
 uses Winapi.WinSock2, ScktComp;
 
+var
+  Server: TSocket;
 {$R *.dfm}
 
 procedure TForm1.ButtonStartClick(Sender: TObject);
 var
-  Server: TSocket;
+
   ServerAddr: TSockAddrIn;
 
 begin
@@ -64,6 +67,49 @@ begin
     exit;
   end;
   Memo1.Lines.Add('IP和端口绑定成功');
+  // 监听当前的IP和端口号是否有客户端连接
+  if listen(Server, SOMAXCONN) = SOCKET_ERROR then
+  begin
+    Memo1.Lines.Add('监听失败');
+    exit;
+  end;
+  Memo1.Lines.Add('监听成功');
+  // 获取客户端连接对象，
+
+  // TODO 当连接失败时我们需要进行处理
+  var
+  AddrSize := sizeof(ServerAddr);
+  var
+  ClientSocket := accept(Server, @ServerAddr, @AddrSize);
+
+  if ClientSocket = INVALID_SOCKET then
+  begin
+    case ClientSocket of
+      WSAEFAULT:
+        Memo1.Lines.Add('IP获取失败')
+    end;
+    Memo1.Lines.Add('获取连接失败');
+    exit;
+  end;
+
+  // 当上面result返回0时表示有客户端成功连接到当前服务器
+  // 当客户端连接成功时，显示一下客户端的IP
+  var
+  CustomWinSocket := TCustomWinSocket.Create(ClientSocket);
+  Memo1.Lines.Add('客户端IP：' + CustomWinSocket.RemoteAddress);
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  // 关闭socket对象
+  if Server <> INVALID_SOCKET then
+  begin
+    closesocket(Server);
+  end;
+
+  // 清理版本库信息
+  if WSACleanup = SOCKET_ERROR then
+    showmessage('清理版本库失败')
 
 end;
 
