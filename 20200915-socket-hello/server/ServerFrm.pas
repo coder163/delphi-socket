@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
-  TForm1 = class(TForm)
+  TFormServer = class(TForm)
     Memo1: TMemo;
     ButtonStart: TButton;
     procedure FormCreate(Sender: TObject);
@@ -21,7 +21,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FormServer: TFormServer;
 
 implementation
 
@@ -32,7 +32,7 @@ var
   Server: TSocket;
 {$R *.dfm}
 
-procedure TForm1.ButtonStartClick(Sender: TObject);
+procedure TFormServer.ButtonStartClick(Sender: TObject);
 var
 
   ServerAddr: TSockAddrIn;
@@ -76,7 +76,7 @@ begin
   Memo1.Lines.Add('监听成功');
   // 获取客户端连接对象，
 
-  // TODO 当连接失败时我们需要进行处理
+
   var
   AddrSize := sizeof(ServerAddr);
   var
@@ -99,7 +99,7 @@ begin
   Memo1.Lines.Add('客户端IP：' + CustomWinSocket.RemoteAddress);
 end;
 
-procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TFormServer.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   // 关闭socket对象
   if Server <> INVALID_SOCKET then
@@ -114,7 +114,7 @@ begin
 end;
 
 { 初始化 }
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TFormServer.FormCreate(Sender: TObject);
 const
   // 网络库版本号2.2
   WINSOCKET_VERSION = $0202;

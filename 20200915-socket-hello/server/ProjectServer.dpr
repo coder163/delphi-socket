@@ -2,13 +2,13 @@ program ProjectServer;
 
 uses
   Vcl.Forms,
-  ServerFrm in 'ServerFrm.pas' {Form1};
+  ServerFrm in 'ServerFrm.pas' {FormServer};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFormServer, FormServer);
   Application.Run;
 end.

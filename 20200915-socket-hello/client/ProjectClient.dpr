@@ -2,13 +2,13 @@ program ProjectClient;
 
 uses
   Vcl.Forms,
-  ClientFrm in 'ClientFrm.pas' {Form2};
+  ClientFrm in 'ClientFrm.pas' {FormClient};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TFormClient, FormClient);
   Application.Run;
 end.
