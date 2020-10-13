@@ -10,11 +10,15 @@ uses
 type
   TFormClient = class(TForm)
     ButtonConnection: TButton;
-    EditPort: TEdit;
-    EditAddr: TEdit;
+    MemoContent: TMemo;
+    MemoRecord: TMemo;
+    GroupBox1: TGroupBox;
+    MemoLog: TMemo;
     Label1: TLabel;
     Label2: TLabel;
-    MemoMsg: TMemo;
+    EditAddr: TEdit;
+    EditPort: TEdit;
+    ButtonSend: TButton;
     procedure ButtonConnectionClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -35,11 +39,13 @@ implementation
 uses Winapi.WinSock2, ScktComp;
 
 var
-  Server, Client: TSocket;
+  Client: TSocket;
 
 procedure TFormClient.ButtonConnectionClick(Sender: TObject);
 var
   ServerAddr: TSockAddrIn;
+  RecvContent: array [0 .. 1023] of Char;
+
 begin
   // 创建Socket对象
   Client := socket(PF_INET, SOCK_STREAM, IPPROTO_IP);
@@ -48,16 +54,27 @@ begin
   begin
     sin_family := PF_INET;
     // 端口号
-    sin_port := StrToInt(EditPort.Text);
+    sin_port := htons(StrToInt(EditPort.Text));
 
     // 本机所有有可能的IP作为服务器端的IP
-    sin_addr.S_addr := inet_addr(PAnsiChar(EditAddr.Text));
+    sin_addr.S_addr := inet_addr(PAnsiChar(AnsiString(EditAddr.Text)));
   end;
   // 连接服务器
-  Server := connect(Client, TSockAddr(ServerAddr), SizeOf(ServerAddr));
-  if Server <> SOCKET_ERROR then
+  var
+  ConnectResult := connect(Client, TSockAddr(ServerAddr), SizeOf(ServerAddr));
+  if ConnectResult <> 0 then
   begin
-    MemoMsg.Lines.Add('连接成功');
+    MemoLog.Lines.Add('连接失败');
+
+  end;
+  ButtonConnection.Enabled := false;
+  // 读取数据
+  var
+  RecvResult := recv(Client, RecvContent, length(RecvContent), 0);
+
+  if RecvResult > 0 then
+  begin
+    MemoRecord.Lines.Add(RecvContent);
   end;
 
 end;
