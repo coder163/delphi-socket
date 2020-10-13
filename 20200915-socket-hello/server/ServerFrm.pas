@@ -62,7 +62,7 @@ begin
 
     sin_family := PF_INET;
     // 端口号
-    sin_port := htons(StrToInt(EditPort.Text));
+    sin_port := StrToInt(EditPort.Text);
     // 本机所有有可能的IP作为服务器端的IP
     // sin_addr.S_addr:=INaddr_any;
     sin_addr.S_addr := inet_addr(PAnsiChar(AnsiString(EditAddr.Text)));
