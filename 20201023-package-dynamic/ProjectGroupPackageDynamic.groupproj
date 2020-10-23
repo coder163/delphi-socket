@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4B6EEE2D-2757-4ECC-B2BB-0BBACB1638B4}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Application\ApplicationConsole.dproj">
+            <Dependencies>PackageDynamic\PackageDynamic.dproj</Dependencies>
+        </Projects>
+        <Projects Include="PackageDynamic\PackageDynamic.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ApplicationConsole" DependsOnTargets="PackageDynamic">
+        <MSBuild Projects="Application\ApplicationConsole.dproj"/>
+    </Target>
+    <Target Name="ApplicationConsole:Clean" DependsOnTargets="PackageDynamic:Clean">
+        <MSBuild Projects="Application\ApplicationConsole.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ApplicationConsole:Make" DependsOnTargets="PackageDynamic:Make">
+        <MSBuild Projects="Application\ApplicationConsole.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PackageDynamic">
+        <MSBuild Projects="PackageDynamic\PackageDynamic.dproj"/>
+    </Target>
+    <Target Name="PackageDynamic:Clean">
+        <MSBuild Projects="PackageDynamic\PackageDynamic.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PackageDynamic:Make">
+        <MSBuild Projects="PackageDynamic\PackageDynamic.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ApplicationConsole;PackageDynamic"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ApplicationConsole:Clean;PackageDynamic:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ApplicationConsole:Make;PackageDynamic:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
