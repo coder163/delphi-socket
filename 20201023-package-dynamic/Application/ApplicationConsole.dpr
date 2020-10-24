@@ -4,20 +4,21 @@ program ApplicationConsole;
 {$R *.res}
 
 uses
-  WinAPI.windows, System.SysUtils;
+  Rtti, WinAPI.windows, System.SysUtils;
 
 type
   // 定义了一个类型
   TPackageProcedure = procedure(Num1, Num2: Integer); stdcall;
 
 var
-  Handle: HMODULE;
+  Handle: HMODULE = 0;
 
 var
   // 定义一个和调用的那个函数的参数返回值一致的变量
   ShowMsg: function(Content: String): String; stdcall;
   PackageAdd: TPackageProcedure;
 
+procedure LoadUnitPorcedure();
 begin
   try
     try
@@ -44,7 +45,50 @@ begin
       UnLoadPackage(Handle);
 
   end;
+end;
 
+begin
+  try
+    try
+      // 动态加载Package
+      Handle := LoadPackage('PackageDynamic.bpl');
+      // 创建上下文对象，该对象中存储了所有运行期类的信息
+      var
+      Context := TRttiContext.Create;
+
+      // 获取指定的class类型：TRttiType
+      var
+      ClassType := Context.FindType('UnitDynamicClass.TUser');
+
+      // 获取运行期类型实例
+      var
+      Instance := ClassType.AsInstance;
+      // 通过运行期实例获取引用类型TClass
+      var
+      Metaclass := Instance.MetaclassType;
+
+      // 获取构造方法的对象:TRttiMethod
+      var
+      CreateMethod := Instance.GetMethod('Create');
+      // 通过构造方法创建TUser对象
+      var
+      User := CreateMethod.Invoke(Metaclass, []);
+
+      var
+      Msg := Instance.GetMethod('ShowMessage').Invoke(User, ['反射方式调用函数']);
+
+      Writeln(Msg.AsString);
+    except
+      On E: Exception do
+        Writeln(E.ClassName, ': ', E.Message);
+
+    end;
+  finally
+    // 卸载Package
+    if Handle <> 0 then
+      UnLoadPackage(Handle);
+
+  end;
   readln;
 
 end.

@@ -32,6 +32,7 @@ requires
   rtl;
 
 contains
-  UnitCallDynamic in 'UnitCallDynamic.pas';
+  UnitCallDynamic in 'UnitCallDynamic.pas',
+  UnitDynamicClass in 'UnitDynamicClass.pas';
 
 end.
