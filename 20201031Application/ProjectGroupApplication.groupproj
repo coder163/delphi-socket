@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3135FE05-3BA4-4F35-BA79-F08BAD4BCA3B}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ProjectApplication.dproj">
+            <Dependencies>..\CommonPackage\CommonPackage.dproj</Dependencies>
+        </Projects>
+        <Projects Include="..\CommonPackage\CommonPackage.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ProjectApplication" DependsOnTargets="CommonPackage">
+        <MSBuild Projects="ProjectApplication.dproj"/>
+    </Target>
+    <Target Name="ProjectApplication:Clean" DependsOnTargets="CommonPackage:Clean">
+        <MSBuild Projects="ProjectApplication.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectApplication:Make" DependsOnTargets="CommonPackage:Make">
+        <MSBuild Projects="ProjectApplication.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CommonPackage">
+        <MSBuild Projects="..\CommonPackage\CommonPackage.dproj"/>
+    </Target>
+    <Target Name="CommonPackage:Clean">
+        <MSBuild Projects="..\CommonPackage\CommonPackage.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CommonPackage:Make">
+        <MSBuild Projects="..\CommonPackage\CommonPackage.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ProjectApplication;CommonPackage"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ProjectApplication:Clean;CommonPackage:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ProjectApplication:Make;CommonPackage:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
