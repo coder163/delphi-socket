@@ -43,8 +43,5 @@ object Form1: TForm1
       item
         Width = 50
       end>
-    ExplicitLeft = 144
-    ExplicitTop = 248
-    ExplicitWidth = 0
   end
 end

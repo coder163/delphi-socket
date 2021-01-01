@@ -29,7 +29,8 @@ package CommonPackage;
 {$IMPLICITBUILD ON}
 
 requires
-  rtl;
+  rtl,
+  vcl;
 
 contains
   UnitSocketUtil in 'UnitSocketUtil.pas',

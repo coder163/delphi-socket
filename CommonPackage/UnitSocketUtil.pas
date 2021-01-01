@@ -7,7 +7,7 @@ unit UnitSocketUtil;
 }
 interface
 
-uses System.Classes, Winapi.Windows, Winapi.WinSock2, ScktComp;
+uses Vcl.Dialogs, System.SysUtils, System.Classes, Winapi.Windows, Winapi.WinSock2, ScktComp;
 
 type
   TScoketRecord = record
@@ -118,16 +118,20 @@ end;
 class function TWinSocketUtil.RecvString(Socket: TSocket): TStringList;
 var
   RecvContent: array [0 .. 123] of Char;
-var
+
   StringList: TStringList;
+
 begin
   StringList := TStringList.Create;
+
   while True do begin
+
     var
     RecvResult := recv(Socket, RecvContent, length(RecvContent), 0);
 
-    StringList.Add(String(RecvContent));
-    if RecvResult < length(RecvContent) then
+    StringList.Add(string(RecvContent));
+
+    if RecvResult <= length(RecvContent) then
       break;
 
   end;
@@ -139,6 +143,7 @@ end;
 class procedure TWinSocketUtil.SendString(Socket: TSocket; Content: array of Char);
 begin
   var
+
   SendResult := send(Socket, Content, length(Content), 0);
 
   if (SendResult = SOCKET_ERROR) then begin

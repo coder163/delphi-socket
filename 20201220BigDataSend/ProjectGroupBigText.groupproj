@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B8411854-4F5D-481F-9835-D4F45108ADFD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Server\Server.dproj">
+            <Dependencies>..\CommonPackage\CommonPackage.dproj</Dependencies>
+        </Projects>
+        <Projects Include="Client\Client.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\CommonPackage\CommonPackage.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Server" DependsOnTargets="CommonPackage">
+        <MSBuild Projects="Server\Server.dproj"/>
+    </Target>
+    <Target Name="Server:Clean" DependsOnTargets="CommonPackage:Clean">
+        <MSBuild Projects="Server\Server.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Server:Make" DependsOnTargets="CommonPackage:Make">
+        <MSBuild Projects="Server\Server.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Client">
+        <MSBuild Projects="Client\Client.dproj"/>
+    </Target>
+    <Target Name="Client:Clean">
+        <MSBuild Projects="Client\Client.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Client:Make">
+        <MSBuild Projects="Client\Client.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CommonPackage">
+        <MSBuild Projects="..\CommonPackage\CommonPackage.dproj"/>
+    </Target>
+    <Target Name="CommonPackage:Clean">
+        <MSBuild Projects="..\CommonPackage\CommonPackage.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CommonPackage:Make">
+        <MSBuild Projects="..\CommonPackage\CommonPackage.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Server;Client;CommonPackage"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Server:Clean;Client:Clean;CommonPackage:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Server:Make;Client:Make;CommonPackage:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

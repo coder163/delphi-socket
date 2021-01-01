@@ -40,7 +40,7 @@ begin
   var
   StringList := TWinSocketUtil.RecvString(ClientSocket);
 
-  ShowMessage(StringList.Text);
+  showmessage(StringList.Text);
 
   ButtonStartClient.Enabled := false;
 end;
@@ -84,7 +84,7 @@ begin
 
   // 清理版本库信息
   if WSACleanup = SOCKET_ERROR then
-    ShowMessage('清理版本库失败')
+    showmessage('清理版本库失败')
 
 end;
 
