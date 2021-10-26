@@ -3,21 +3,26 @@ unit ServerFrm;
 interface
 
 uses
-    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
     TFormServer = class(TForm)
-        MemoContent: TMemo;
-        ButtonStart: TButton;
-        MemoRecord: TMemo;
-        MemoLog: TMemo;
-        GroupBox1: TGroupBox;
-        Label1: TLabel;
-        Label2: TLabel;
-        EditAddr: TEdit;
-        EditPort: TEdit;
-        ButtonSend: TButton;
-        Button1: TButton;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    MemoRecord: TMemo;
+    MemoLog: TMemo;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    EditAddr: TEdit;
+    EditPort: TEdit;
+    MemoContent: TMemo;
+    ButtonStart: TButton;
+    GroupBox2: TGroupBox;
+    Button1: TButton;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
+    Splitter3: TSplitter;
         procedure FormCreate(Sender: TObject);
         procedure ButtonStartClick(Sender: TObject);
         procedure FormClose(Sender: TObject; var Action: TCloseAction);

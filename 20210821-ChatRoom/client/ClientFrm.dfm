@@ -1,9 +1,9 @@
 object FormClient: TFormClient
-  Left = 0
-  Top = 0
+  Left = 720
+  Top = 349
   Caption = #23458#25143#31471
-  ClientHeight = 474
-  ClientWidth = 822
+  ClientHeight = 441
+  ClientWidth = 773
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,7 @@ object FormClient: TFormClient
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesigned
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
@@ -29,6 +30,8 @@ object FormClient: TFormClient
     Top = 370
     Width = 561
     Height = 103
+    Lines.Strings = (
+      #26399#24453'B'#31449#31881#19997#36807#19975#65281#65281#65281'Delphi'#30740#20064#31038)
     ScrollBars = ssVertical
     TabOrder = 1
   end

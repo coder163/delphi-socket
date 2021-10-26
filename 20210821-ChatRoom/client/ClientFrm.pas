@@ -67,24 +67,35 @@ begin
 
     end;
     ButtonConnection.Enabled := false;
-    // 读取数据
-//    var RecvResult := recv(Client, RecvContent, length(RecvContent), 0);
-//
-//    if RecvResult > 0 then begin
-//        MemoRecord.Lines.Add(RecvContent);
-//
-//    end;
+
+    TThread.CreateAnonymousThread(
+        procedure
+        begin
+            // 读取数据
+            while True do begin
+                var RecvResult := recv(Client, RecvContent, length(RecvContent), 0);
+                if RecvResult > 0 then begin
+                    MemoRecord.Lines.Add(RecvContent);
+
+                end;
+            end;
+        end).Start;
 
 end;
 
 procedure TFormClient.ButtonSendClick(Sender: TObject);
+var
+    Buf: array[0..1023] of Char;
 begin
-    // 发送一句话
-    var SendResult := send(Client, '欢迎你来到老侯的直播间', 1024, 0);
+    //字符串复制
+    StrCopy(@Buf, PChar(MemoContent.Text));
+    // 发送内容
+    var SendResult := send(Client, Buf, Length(Buf), 0);
 
     if (SendResult = SOCKET_ERROR) or (SendResult <= 0) then begin
         MemoLog.Lines.Add('数据发送失败');
     end;
+    MemoContent.Text := '';
 end;
 
 procedure TFormClient.FormClose(Sender: TObject; var Action: TCloseAction);
