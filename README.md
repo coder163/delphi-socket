@@ -31,20 +31,8 @@
 # 疑问解答
 
 
-公众号
+公众号：Delphi研习社
 
 <img src="http://imgs.coder163.com/gongzhonghao.png" width=120 />
 
-QQ群
-
-<img src="http://imgs.coder163.com/qqqun2.png" width=120 />
-
-互动星球
-
-<img src="https://www.coder163.com/img/quanzi.jpg" width=135 />
-
-
-# 课程费用
-
-视频内容全部免费，如果大家在其他地方看到有收费的均非本人发布
 
